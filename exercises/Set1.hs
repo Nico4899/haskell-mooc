@@ -20,14 +20,17 @@ import Mooc.Todo
 ------------------------------------------------------------------------------
 -- Ex 1: define variables one and two. They should have type Int and
 -- values 1 and 2, respectively.
-
+one :: Int
+one = 1
+two :: Int
+two = 2
 
 ------------------------------------------------------------------------------
 -- Ex 2: define the function double of type Integer->Integer. Double
 -- should take one argument and return it multiplied by two.
 
 double :: Integer -> Integer
-double x = todo
+double x = x*2
 
 ------------------------------------------------------------------------------
 -- Ex 3: define the function quadruple that uses the function double
@@ -35,7 +38,7 @@ double x = todo
 -- four.
 
 quadruple :: Integer -> Integer
-quadruple x = todo
+quadruple x = double x * 2
 
 ------------------------------------------------------------------------------
 -- Ex 4: define the function distance. It should take four arguments of
@@ -51,7 +54,8 @@ quadruple x = todo
 --   distance 0 0 1 1  ==>  1.4142135...
 --   distance 1 1 4 5  ==>  5.0
 
-distance = todo
+distance :: Floating a => a -> a -> a -> a -> a
+distance x1 y1 x2 y2 = sqrt ((x2 - x1)^2 + (y2 - y1)^2)
 
 ------------------------------------------------------------------------------
 -- Ex 5: define the function eeny that returns "eeny" for even inputs
@@ -60,7 +64,9 @@ distance = todo
 -- Ps. have a look at the built in function "even"
 
 eeny :: Integer -> String
-eeny = todo
+eeny x 
+    | even x = "eeny"
+    | otherwise = "meeny"
 
 ------------------------------------------------------------------------------
 -- Ex 6: here's the function checkPassword from the course material.
@@ -68,9 +74,9 @@ eeny = todo
 -- "mellon".
 
 checkPassword :: String -> String
-checkPassword password = if password == "swordfish"
-                         then "You're in."
-                         else "ACCESS DENIED!"
+checkPassword password 
+    | password == "swordfish" || password == "mellon" = "You're in."
+    | otherwise = "ACCESS DENIED!"
 
 ------------------------------------------------------------------------------
 -- Ex 7: A postal service prices packages the following way.
@@ -81,8 +87,11 @@ checkPassword password = if password == "swordfish"
 -- Write a function postagePrice that takes the weight of a package
 -- in grams, and returns the cost in credits.
 
-postagePrice :: Int -> Int
-postagePrice = todo
+postagePrice :: Integer -> Integer
+postagePrice weight
+  | weight <= 500   = 250
+  | weight <= 5000  = 300 + (weight - 500)
+  | otherwise       = 6000
 
 ------------------------------------------------------------------------------
 -- Ex 8: define a function isZero that returns True if it is given an
@@ -92,7 +101,9 @@ postagePrice = todo
 --
 -- Ps. remember, the type of booleans in haskell is Bool
 
-isZero = todo
+isZero :: Integer -> Bool
+isZero 0 = True
+isZero _ = False
 
 ------------------------------------------------------------------------------
 -- Ex 9: implement using recursion a function sumTo such that
@@ -100,14 +111,17 @@ isZero = todo
 -- computes the sum 1+2+...+n
 
 sumTo :: Integer -> Integer
-sumTo = todo
+sumTo 0 = 0
+sumTo n = sum [1..n]
 
 ------------------------------------------------------------------------------
 -- Ex 10: power n k should compute n to the power k (i.e. n^k)
 -- Use recursion.
 
 power :: Integer -> Integer -> Integer
-power = todo
+power _ 0 = 1
+power 0 _ = 0
+power n k = n^k
 
 ------------------------------------------------------------------------------
 -- Ex 11: ilog3 n should be the number of times you can divide given
@@ -126,4 +140,5 @@ power = todo
 --   ilog3 7 ==> 2
 
 ilog3 :: Integer -> Integer
-ilog3 = todo
+ilog3 0 = 0
+ilog3 n = 1 + ilog3 (n `div` 3)
